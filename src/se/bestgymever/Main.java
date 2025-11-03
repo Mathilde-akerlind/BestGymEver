@@ -5,15 +5,19 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        String filePath = "members.txt"; // filen i projektets rotmapp
-        List<Member> members = FileReaderHelper.readMembersFromFile(filePath);
+        String memberFilePath = "members.txt";
+        String logFilePath = "training_log.txt";
+
+        List<Member> members = FileReaderHelper.readMembersFromFile(memberFilePath);
 
         if (members.isEmpty()) {
             System.out.println("Inga medlemmar kunde läsas in. Kontrollera filen.");
             return;
         }
 
-        MemberFinder finder = new MemberFinder(members);
+        TrainingLogger logger = new TrainingLogger(logFilePath);
+        MemberFinder finder = new MemberFinder(members, logger);
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Välkommen till Best Gym Ever!");
